@@ -44,3 +44,60 @@ const USER_NAME = 'PAULA'
 
 //Es muy común utilizar esta nomenclatura para nombrar variables constantes
 
+//Null y undefined, este tipo de datos solo puede tener un valor null el valor null y undefined el valor undefined
+
+//Null significa que algo no tiene valor pero undefined significa que algo no ha sido definido, si creamos una variable sin asignarle ningún valor, su valor será undefined
+
+let variable // -> undefined
+
+//También lo podemos asignar a una variable
+
+let nombre = undefined
+
+//En cambio, para que una variable tenga valor null, siempre debemos asignarselo
+
+let auto = null
+
+//Comparaciones con null y undefined
+
+null === undefined // -> false
+
+//Solo al comparar entre el mismo valor obtenemos true
+
+null === null // -> true
+undefined === undefined // -> true
+
+//Operador typeof, devuelve una cadena de texto que indica el tipo de un operando, puede ser usado con variable y literales
+
+const MAGIC_NUMBER = 7
+typeof MAGIC_NUMBER // number
+
+//Usado con valores literales
+
+typeof undefined // "undefined"
+typeof true // "boolean"
+typeof 42 // "number"
+typeof "Hola mundo" // "string"
+
+//Existe un valor especial en JavaScript null, que se considera un bug en el lenguaje que el operador typeof devuelve "objetc" al usarlo
+
+typeof null // object
+
+//Si deseas comprobar si una variable es null estaras obligado a usar la comparación estrica ===
+
+const foo = null
+
+foo === null // true
+
+//Usando typeof con operadores de comparación
+
+//podemos comprobar si una variable es del tipo que esperamos
+
+const age = 42
+typeof age === "number" // true
+
+//Una vez tenemos expresiones lógicas, podemos empezar a encadenar operadores lógicos para comprobar múltiples condiciones
+
+const age1 = 42
+typeof age === "number" && age > 18 // true
+
