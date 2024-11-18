@@ -190,3 +190,113 @@ const numbers = [13, 27, 44, 81]
 const firstNegativeNumberIndexs = numbers.findIndex(number => number < 0)
 
 console.log(firstNegativeNumberIndex) // -> -1
+
+//Ordenamiento de arrays en JavaScript
+
+//Los array tienen un método para ordenarse llamado sort, este tiene un comportamiento extraño si se utiliza por defecto, ya que ordena los números en función de su valos como cadena de texto
+
+const numeros = [5, 10, 2, 25, 7]
+
+numeros.sort() //--> [10, 2, 25, 5, 7]
+
+//Lo bueno es que este método recibe una función como parametro que debe devolver un valor
+
+//si la función devuelve un negativo
+numeros.sort((a,b) => a - b) // [2, 5, 7, 10, 25]
+
+//si la función devuelve un positivo
+numeros.sort((a, b) => b - a) // [25, 10, 7, 5, 2]
+
+//si la función devuelve 0 ambos argumentos son iguales
+
+//.sort modifica el array original, si quiere obtener un array ordenado sin modificar puedes usar el método .toSorted() (ten en cuenta que, ahora mismo, su soporte en navegadores el limitado)
+
+let numerosOrdenados = numeros.toSorted((a, b) => {
+  return a - b
+})
+
+console.log(numerosOrdenados) // [2, 5, 7, 10, 25]
+console.log(numeros) // [5, 10, 2, 25, 7]
+
+//También podrias usar el operador de progragación para crear un copia del array original
+
+const copiaNumeros = [...numeros]
+//Ordenamos la copia 
+copiaNumeros.sort((a, b) => a - b) // [5, 10, 2, 25, 7]
+
+//Transformación de arrays en JavaScript
+
+//Filter, es un método que crea un nuevo array con todos los elementos que devuelven true al ejecutar una función que le pasamos como parámetro
+
+const numbers = [1 ,2 , 3, 4, 5, 6, 7]
+
+//nuevo array con los números pares del array numbers
+const evenNumbers = numbers.filter(number => number % 2 === 0) // -> [2, 4, 6]
+
+const strings = ['hola', 'adiós', 'casa', ' coche', 'perro', 'gato']
+
+//nuevo array con las palabras que tengan una a
+const stringsWithA = strings.filter(string => string.includes('a')) // -> ['hola', 'adiós', 'casa', 'gato']
+
+//Map, crea un nuevo array de la misma longitud que el original, pero con los elementos tranformados por una función que le pasamos como parámetro, la función recibira cada elemento del array y lo retornara transformado
+const numbers = [1, 2, 3]
+
+//Array con el doble de los numeros almacenados en numbers
+const doubleNumbers = numbers.map(number => number * 2) //-> [2, 4, 6]
+
+const stringss = ['hola', 'javascript', 'paula', 'programación']
+
+//Array con la longitud de cada cadena de texto de un array de cadenas
+const stringsLength = stringss.map(string => string.length)
+
+//Map + Filter, en JavaScript podemos encadenar métodos, si un método devuelve un array podemos llamar a otro método sobre ese array sin necesidad de guardarlo en una variable
+
+const numbers = [1 ,2 , 3, 4, 5, 6, 7]
+
+const numsGreaterThanFive = numbers
+  .map(number => number * 2) //-> [2, 4, 6, 8, 10, 12, 14]
+  .filter(number => number > 5) // -> [6, 8, 10, 12, 14]
+
+//También podríamos filtrar primero y luego transformar
+const doubleEvenNumbers = numbers
+  .filter(number => number % 2 === 0) // -> [2, 4 ,6]
+  .map(number => number * 2) // -> [4, 8, 12]
+
+//Reduce, permite crear un único valor a partir de un array, recibe dos parámetos: una función que se ejecutará por cada elemento y un valor inicial, opcional, que será donde podremos acumular los valores
+
+//La función recibe tres parámetros:
+//El acumulador: el valor que se va a ir acumulando en cada iteración
+//El elemento actual: el elemento del array que estamos iterando en ese momento
+//El índice: la posición del elemento actual del array
+//la función debe devolver el valor que se va a acumular en cada iteración
+
+//Caso de uso típico de reduce, sumar todos los elementos de un array
+
+const numbers = [1, 2, 3]
+
+const sum = numbers.reduce((suma, number) => {
+  return suma + number
+}, 0) // <- valor inicial
+
+//podemos recrear lo que hicimos con map y filter anteriormente para doblar los números pares y quedarnos solo con los que son mayores a 5
+
+const numbers = [1, 2, 3, 4, 5, 6, 7]
+
+const doubleEvenNumberss = numbers.reduce((accumulator, currentNumber) => {
+  const isEven = currentNumber % 2 === 0
+  const doubled = currentNumber * 2
+  const isGreaterThanFive = doubled > 5
+
+  // si es par y mayor que 5, lo añadimos al array
+  if (isEven && isGreaterThanFive) {
+    // para ello devolvemos un nuevo array con el valor actual
+    return accumulator.concat(doubled)
+  } else {
+    // si no, devolvemos lo que ya teníamos
+    return accumulator
+  }
+}, []) // <- el array vacío es el valor inicial
+
+console.log(doubleEvenNumbers) // [8, 12]
+
+//ten en cuenta que la carga cognitica de reduce es mayor que la de utilizar map y filter, así que si puedes usarlo en ves de reduce hazlo y limita el uso de reduce cuando no tengas más opciones
